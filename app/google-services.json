@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "442163148967",
+    "project_id": "edqube-9d79d",
+    "storage_bucket": "edqube-9d79d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:442163148967:android:db8538bb0bb75a28804382",
+        "android_client_info": {
+          "package_name": "com.module.edqube"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "442163148967-3q99pk05ubmg17tg4ee1u65p6fprfnqh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.module.edqube",
+            "certificate_hash": "e1e1750938a99cbcde00f2da1ff8a533d832bb35"
+          }
+        },
+        {
+          "client_id": "442163148967-act89rnakv8jtna06b3vk4rpdr5m7roa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5AdfHttLvo7VMhDrkpAGKARfFe7zblB4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "442163148967-act89rnakv8jtna06b3vk4rpdr5m7roa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

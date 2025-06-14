@@ -1,0 +1,11 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme - force Light Mode -->
+    <style name="Base.Theme.EdQube" parent="Theme.Material3.Light.NoActionBar">
+        <!-- Add your custom light theme settings here -->
+        <!-- Example:
+        <item name="colorPrimary">@color/your_primary</item>
+        -->
+    </style>
+
+    <style name="Theme.EdQube" parent="Base.Theme.EdQube" />
+</resources>
