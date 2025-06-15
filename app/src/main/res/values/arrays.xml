@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="qualification_options">
+        <item>Select</item>
+        <item>High School</item>
+        <item>Bachelor\'s Degree</item>
+        <item>Master\'s Degree</item>
+        <item>PhD</item>
+    </string-array>
+</resources>

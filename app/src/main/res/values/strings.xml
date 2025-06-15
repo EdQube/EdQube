@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">EdQube</string>
-    <string name="default_web_client_id">AIzaSyA5AdfHttLvo7VMhDrkpAGKARfFe7zblB4\n</string>
+    <string name="select_qualification"><![CDATA[<string name=\"select_qualification\">Select</string>]]></string>
 </resources>
