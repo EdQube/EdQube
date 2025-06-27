@@ -9,16 +9,18 @@
     android:padding="16dp"
     tools:context=".initialScreens.ProfileDetailsFirstActivity">
 
+    <!-- Logo -->
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/logo" />
 
+    <!-- Title -->
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
@@ -28,10 +30,11 @@
         android:fontFamily="@font/gbold"
         android:text="Profile Details"
         android:textColor="@color/secondary"
-        android:textSize="32dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        android:textSize="30sp"
+        app:layout_constraintTop_toBottomOf="@id/imageView3"
+        app:layout_constraintStart_toStartOf="parent" />
 
+    <!-- Step -->
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
@@ -40,225 +43,195 @@
         android:fontFamily="@font/mregular"
         android:text="Step 1/2"
         android:textColor="#000000"
-        app:layout_constraintBottom_toBottomOf="@+id/textView4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView4" />
+        app:layout_constraintTop_toTopOf="@id/textView4"
+        app:layout_constraintBottom_toBottomOf="@id/textView4"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- ScrollView for the form fields -->
+    <!-- ScrollView for Form -->
     <ScrollView
-        android:layout_width="match_parent"
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonContainer"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/textView4"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4">
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <!-- Full Name Field -->
+            <!-- Full Name -->
             <TextView
-                android:id="@+id/fullNameLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Full Name *"
-                android:textSize="16sp"
-                android:layout_marginBottom="4dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+                android:textColor="@color/black"
+                android:fontFamily="@font/mmedium"/>
             <EditText
-                android:id="@+id/fullNameEditText"
+                android:id="@+id/editTextFullName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Piyush Yadav"
-                android:textSize="16sp"
+                android:layout_height="50dp"
+                android:background="#F2F2F2"
+                android:hint="Enter Name"
                 android:padding="12dp"
-                android:background="@drawable/edittext_background"
-                android:layout_marginBottom="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fullNameLabel" />
+                android:textColor="@color/black"
+                android:fontFamily="@font/mbold"
+                android:layout_marginBottom="12dp" />
 
-            <!-- Phone Number and Age in a horizontal layout -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/phoneAgeContainer"
+            <!-- Phone Number + Age -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fullNameEditText">
+                android:orientation="horizontal"
+                android:layout_marginBottom="12dp">
 
-                <!-- Phone Number -->
-                <TextView
-                    android:id="@+id/phoneLabel"
+                <!-- Phone -->
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Phone Number *"
-                    android:textSize="16sp"
-                    android:layout_marginBottom="4dp"
-                    app:layout_constraintEnd_toStartOf="@+id/ageLabel"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/phoneEditText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:hint="8353955811"
-                    android:textSize="16sp"
-                    android:padding="12dp"
-                    android:inputType="phone"
-                    android:background="@drawable/edittext_background"
-                    app:layout_constraintEnd_toStartOf="@+id/ageEditText"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/phoneLabel" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Phone Number *"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/mmedium" />
+                    <EditText
+                        android:id="@+id/editTextPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="#F2F2F2"
+                        android:hint="0000000000"
+                        android:maxLength="10"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/mbold"
+                        android:inputType="phone"
+                        android:padding="12dp" />
+                </LinearLayout>
+
+                <Space android:layout_width="8dp" android:layout_height="match_parent" />
 
                 <!-- Age -->
-                <TextView
-                    android:id="@+id/ageLabel"
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Age *"
-                    android:textSize="16sp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginBottom="4dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/phoneLabel"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/ageEditText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:hint=""
-                    android:textSize="16sp"
-                    android:padding="12dp"
-                    android:inputType="number"
-                    android:background="@drawable/edittext_background"
-                    android:layout_marginStart="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/phoneEditText"
-                    app:layout_constraintTop_toBottomOf="@+id/ageLabel" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Age *"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/mmedium" />
+
+                    <EditText
+                        android:id="@+id/editTextAge"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="#F2F2F2"
+                        android:hint="Age"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/mbold"
+                        android:inputType="number"
+                        android:maxLength="2"
+                        android:padding="12dp"/>
+                </LinearLayout>
+            </LinearLayout>
 
             <!-- Pin Code -->
             <TextView
-                android:id="@+id/pinCodeLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Pin code *"
-                android:textSize="16sp"
-                android:layout_marginBottom="4dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/phoneAgeContainer" />
+                android:text="Pin Code *"
+                android:textColor="@color/black"
+                android:fontFamily="@font/mmedium"/>
 
             <EditText
-                android:id="@+id/pinCodeEditText"
+                android:id="@+id/editTextPinCode"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint=""
-                android:textSize="16sp"
-                android:padding="12dp"
+                android:layout_height="50dp"
+                android:hint="000000"
+                android:background="#F2F2F2"
                 android:inputType="number"
-                android:background="@drawable/edittext_background"
-                android:layout_marginBottom="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/pinCodeLabel" />
+                android:maxLength="6"
+                android:textColor="@color/black"
+                android:fontFamily="@font/mbold"
+                android:padding="12dp"
+                android:layout_marginBottom="12dp" />
 
             <!-- Address -->
             <TextView
-                android:id="@+id/addressLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Address"
-                android:textSize="16sp"
-                android:layout_marginBottom="4dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/pinCodeEditText" />
+                android:textColor="@color/black"
+                android:fontFamily="@font/mmedium"/>
 
             <EditText
-                android:id="@+id/addressEditText"
+                android:id="@+id/editTextAddress"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint=""
-                android:textSize="16sp"
+                android:layout_height="50dp"
+                android:hint="Address"
+                android:background="#F2F2F2"
                 android:padding="12dp"
-                android:background="@drawable/edittext_background"
-                android:layout_marginBottom="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addressLabel" />
-
+                android:minLines="1"
+                android:maxLines="5"
+                android:inputType="textMultiLine"
+                android:gravity="top|start"
+                android:textColor="@color/black"
+                android:fontFamily="@font/mbold"
+                android:layout_marginBottom="12dp" />
             <!-- Qualification -->
             <TextView
-                android:id="@+id/qualificationLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Qualification"
-                android:textSize="16sp"
-                android:layout_marginBottom="4dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addressEditText" />
-
+                android:textColor="@color/black"
+                android:fontFamily="@font/mmedium"/>
             <Spinner
-                android:id="@+id/qualificationSpinner"
+                android:id="@+id/spinnerQualification"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#F2F2F2"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Navigation Buttons -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="12dp"
-                android:background="@drawable/edittext_background"
-                android:entries="@array/qualification_options"
-                android:prompt="@string/select_qualification"
-                android:layout_marginBottom="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/qualificationLabel" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/buttonBack"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Back"
+                    android:fontFamily="@font/mbold"
+                    android:textColor="#000000"
+                    android:backgroundTint="#D9D9D9" />
+
+                <Space android:layout_width="12dp" android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/buttonNext"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Next →"
+                    android:fontFamily="@font/mbold"
+                    android:textColor="#FFFFFF"
+                    android:backgroundTint="#001F45" />
+            </LinearLayout>
+
+        </LinearLayout>
     </ScrollView>
 
-    <!-- Buttons Container -->
-    <LinearLayout
-        android:id="@+id/buttonContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <Button
-            android:id="@+id/backButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Back"
-            android:paddingLeft="32dp"
-            android:paddingRight="32dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:background="@drawable/bg_register_button"
-            android:textColor="@android:color/white"
-            android:layout_marginEnd="16dp"/>
-
-        <Button
-            android:id="@+id/nextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Next →"
-            android:paddingLeft="32dp"
-            android:paddingRight="32dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:background="@drawable/bg_login_button"
-            android:textColor="@android:color/white"/>
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

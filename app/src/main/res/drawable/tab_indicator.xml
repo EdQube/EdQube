@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Keep the indicator stuck to the very bottom of the tab -->
+    <item android:gravity="bottom">
+
+        <shape android:shape="rectangle">
+            <!-- Thickness of the line -->
+            <size android:height="3dp" />
+
+            <!-- Solid colour of the indicator -->
+            <gradient
+                android:angle="0"
+                android:centerColor="@color/secondary"
+                android:endColor="#00FFFFFF"
+                android:startColor="#00FFFFFF" />
+            <!-- change to any theme colour -->
+
+            <!-- Optional: soften the ends -->
+            <corners android:radius="1.5dp" />
+        </shape>
+
+    </item>
+
+</layer-list>

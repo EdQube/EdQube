@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One row inside the “Timing” RecyclerView -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:paddingHorizontal="16dp">
+
+    <!-- Day name (Monday, Tuesday, …) -->
+    <TextView
+        android:id="@+id/tvDay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Monday"
+        android:fontFamily="@font/mregular"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <!-- Open / Close -->
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Open"
+        android:fontFamily="@font/mbold"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@id/tvDay"
+        app:layout_constraintTop_toTopOf="@id/tvDay"
+        app:layout_constraintBottom_toBottomOf="@id/tvDay"
+        android:layout_marginStart="16dp" />
+
+    <!-- Opening time “chip” -->
+    <TextView
+        android:id="@+id/tvOpenTime"
+        style="@style/Widget.Material3.Chip.Assist"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:text="9:00"
+        android:textColor="@color/black"
+        android:fontFamily="@font/mregular"
+        app:layout_constraintEnd_toStartOf="@id/tvCloseTime"
+        app:layout_constraintTop_toTopOf="@id/tvDay"
+        app:layout_constraintBottom_toBottomOf="@id/tvDay"
+        android:layout_marginEnd="8dp" />
+
+    <!-- Closing time “chip” -->
+    <TextView
+        android:id="@+id/tvCloseTime"
+        style="@style/Widget.Material3.Chip.Assist"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:text="22:00"
+        android:textColor="@color/black"
+        android:fontFamily="@font/mregular"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvDay"
+        app:layout_constraintBottom_toBottomOf="@id/tvDay" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
