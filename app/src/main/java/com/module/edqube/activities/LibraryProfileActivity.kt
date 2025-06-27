@@ -17,26 +17,16 @@ class LibraryProfileActivity : AppCompatActivity() {
         binding = ActivityLibraryProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        /* ------------------------------------------------------------------ */
-        /* Intent data                                                        */
-        /* ------------------------------------------------------------------ */
         val name     = intent.getStringExtra("libraryName")     ?: "Library"
         val distance = intent.getDoubleExtra("libraryDistance", 0.0)
         val imageRes = intent.getIntExtra("libraryImage", R.drawable.libr)
 
-        /* ------------------------------------------------------------------ */
-        /* Header population                                                  */
-        /* ------------------------------------------------------------------ */
         binding.header.apply {
             ivCover.setImageResource(imageRes)
             ivAvatar.setImageResource(imageRes)
             tvLibraryName.text = name
-            tvDistance.text    = getString(R.string.km_format, distance)   // "%,.1f km" in strings.xml
+            tvDistance.text    = getString(R.string.km_format, distance)
         }
-
-        /* ------------------------------------------------------------------ */
-        /* ViewPager + TabLayout                                              */
-        /* ------------------------------------------------------------------ */
         binding.viewPager.adapter = LibraryPagerAdapter(this)
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->

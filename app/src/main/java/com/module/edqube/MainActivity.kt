@@ -1,46 +1,57 @@
 package com.module.edqube
 
-import android.os.Build
 import android.os.Bundle
-import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.tabs.TabLayoutMediator
-import com.module.edqube.adapters.ViewPagerAdapter
-import com.module.edqube.databinding.ActivityMainBinding   // ← auto-generated
-import com.module.edqube.R
+import androidx.fragment.app.Fragment
+import com.module.edqube.databinding.ActivityMainBinding
+import com.module.edqube.fragments.CreatePostFragment
+import com.module.edqube.fragments.JobsFragment
+import com.module.edqube.fragments.ProfileFragment
+import com.module.edqube.fragments.SearchFragment
+import com.module.edqube.ui.HomeFragment
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding      // single binding ref
+    private lateinit var binding: ActivityMainBinding
+    private var activeFragment: Fragment? = null          // to avoid re-creating
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Inflate once, no findViewById needed
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // ViewPager2 + adapter
-        val pagerAdapter = ViewPagerAdapter(this)
-        binding.viewPager.apply {
-            adapter = pagerAdapter
-            // explicit but optional – swiping is true by default
-            isUserInputEnabled = true
-        }
+        // preload all fragments once (optional but smoothest)
+        val home     = HomeFragment()
+        val search   = SearchFragment()
+        val post     = CreatePostFragment()
+        val jobs     = JobsFragment()
+        val profile  = ProfileFragment()
 
-        // Tab text & custom font
-        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-            val tabView = layoutInflater.inflate(R.layout.custom_tab, null) as TextView
-            tabView.text = when (position) {
-                0 -> "Libraries"
-                1 -> "Posts"
-                else -> "Coachings"
+        supportFragmentManager.beginTransaction()
+            .add(R.id.fragment_container, profile,  "profile").hide(profile)
+            .add(R.id.fragment_container, jobs,     "jobs").hide(jobs)
+            .add(R.id.fragment_container, post,     "post").hide(post)
+            .add(R.id.fragment_container, search,   "search").hide(search)
+            .add(R.id.fragment_container, home,     "home")           // shown by default
+            .commit()
+        activeFragment = home
+
+        binding.bottomNavigation.setOnItemSelectedListener { item ->
+            val next = when (item.itemId) {
+                R.id.menu_search  -> search
+                R.id.menu_post    -> post
+                R.id.menu_jobs    -> jobs
+                R.id.menu_profile -> profile
+                else              -> home
             }
-            tabView.typeface = resources.getFont(R.font.mregular)
-            tab.customView = tabView
-        }.attach()
+            if (next != activeFragment) {
+                supportFragmentManager.beginTransaction()
+                    .hide(activeFragment!!)
+                    .show(next)
+                    .commit()
+                activeFragment = next
+            }
+            true
+        }
     }
 }

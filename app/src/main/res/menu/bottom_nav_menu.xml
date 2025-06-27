@@ -4,19 +4,19 @@
         android:title="Home"
         android:icon="@drawable/home" />
     <item
-        android:id="@+id/nav_search"
+        android:id="@+id/menu_search"
         android:title="Search"
         android:icon="@drawable/search" />
     <item
-        android:id="@+id/nav_post"
+        android:id="@+id/menu_post"
         android:title="Post"
         android:icon="@drawable/post" />
     <item
-        android:id="@+id/nav_jobs"
+        android:id="@+id/menu_jobs"
         android:title="Jobs"
         android:icon="@drawable/job" />
     <item
-        android:id="@+id/nav_profile"
+        android:id="@+id/menu_profile"
         android:title="Profile"
         android:icon="@drawable/user" />
 </menu>

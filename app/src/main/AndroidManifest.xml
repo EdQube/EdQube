@@ -22,18 +22,6 @@
         android:theme="@style/Theme.EdQube"
         tools:targetApi="31" >
         <activity
-            android:name=".activities.ProfileActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.JobsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.PostActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.SearchActivity"
-            android:exported="false" />
-        <activity
             android:name=".activities.LibraryProfileActivity"
             android:exported="false" />
         <activity
