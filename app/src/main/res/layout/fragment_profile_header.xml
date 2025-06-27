@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/profile_ivCover"
+        android:layout_width="0dp"
+        android:layout_height="160dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/libr"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_ivAvatar"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:src="@drawable/libr"
+        app:civ_border_width="3dp"
+        app:civ_border_color="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/profile_ivCover"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="-48dp" />
+
+    <ImageView
+        android:id="@+id/profile_ivEditLogo"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/edit"
+        android:background="@drawable/bg_circle_white_24"
+        android:padding="2dp"
+        app:tint="@color/secondary"
+        app:layout_constraintBottom_toBottomOf="@id/profile_ivAvatar"
+        app:layout_constraintEnd_toEndOf="@id/profile_ivAvatar" />
+
+    <LinearLayout
+        android:id="@+id/profile_nameRow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/profile_ivAvatar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/profile_tvLibraryName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quantum Library"
+            android:fontFamily="@font/gbold"
+            android:textSize="18sp"
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:id="@+id/profile_ivVerified"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="4dp"
+            android:src="@drawable/verified"
+            app:tint="@color/secondary" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/profile_statsRow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7">
+
+        <TextView
+            android:id="@+id/profile_tvFollowers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mbold"
+            android:text="235"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:fontFamily="@font/mregular"
+            android:text="Followers"
+            android:textColor="@color/black" />
+
+        <View
+            android:layout_width="8dp"
+            android:layout_height="0dp" />
+
+        <TextView
+            android:id="@+id/profile_tvFollowing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mbold"
+            android:text="50"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:fontFamily="@font/mregular"
+            android:text="Following"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/profile_btnFollow"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="12dp"
+        android:text="Follow"
+        android:fontFamily="@font/mbold"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/primary"
+        app:iconPadding="4dp"
+        app:iconTint="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/profile_statsRow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/profile_btnMessage"
+        app:layout_constraintWidth_percent="0.45" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/profile_btnMessage"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        android:icon="@drawable/message"
+        android:text="Message"
+        android:fontFamily="@font/mbold"
+        android:textColor="@color/black"
+        app:iconTint="@color/secondary"
+        app:strokeColor="@color/secondary"
+        app:strokeWidth="1dp"
+        app:layout_constraintTop_toTopOf="@id/profile_btnFollow"
+        app:layout_constraintStart_toEndOf="@id/profile_btnFollow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.45" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
+        android:textColor="@color/black"
+        android:fontFamily="@font/mregular"
+        android:maxLines="5"
+        android:minLines="1"
+        android:ellipsize="end"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_nameRow" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
