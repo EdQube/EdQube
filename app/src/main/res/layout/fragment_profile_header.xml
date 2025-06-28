@@ -29,43 +29,33 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="-48dp" />
 
-    <ImageView
-        android:id="@+id/profile_ivEditLogo"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@drawable/edit"
-        android:background="@drawable/bg_circle_white_24"
-        android:padding="2dp"
-        app:tint="@color/secondary"
-        app:layout_constraintBottom_toBottomOf="@id/profile_ivAvatar"
-        app:layout_constraintEnd_toEndOf="@id/profile_ivAvatar" />
 
     <LinearLayout
         android:id="@+id/profile_nameRow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:gravity="center"
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@id/profile_ivAvatar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
-            android:id="@+id/profile_tvLibraryName"
+            android:id="@+id/profile_about"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Quantum Library"
-            android:fontFamily="@font/gbold"
-            android:textSize="18sp"
+            android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
+            android:fontFamily="@font/mbold"
+            android:textSize="14sp"
+            android:ellipsize="end"
+            android:maxLines="5"
+            android:minLines="1"
+            android:gravity="center"
             android:textColor="@color/black" />
 
-        <ImageView
-            android:id="@+id/profile_ivVerified"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_marginStart="4dp"
-            android:src="@drawable/verified"
-            app:tint="@color/secondary" />
     </LinearLayout>
 
     <LinearLayout
@@ -76,7 +66,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7">
+        app:layout_constraintTop_toBottomOf="@+id/profile_nameRow">
 
         <TextView
             android:id="@+id/profile_tvFollowers"
@@ -148,21 +138,5 @@
         app:layout_constraintStart_toEndOf="@id/profile_btnFollow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintWidth_percent="0.45" />
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
-        android:textColor="@color/black"
-        android:fontFamily="@font/mregular"
-        android:maxLines="5"
-        android:minLines="1"
-        android:ellipsize="end"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_nameRow" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

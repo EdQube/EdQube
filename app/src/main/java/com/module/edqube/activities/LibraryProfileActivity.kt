@@ -1,6 +1,8 @@
 package com.module.edqube.activities
 
+import android.app.Dialog
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayoutMediator
@@ -28,6 +30,31 @@ class LibraryProfileActivity : AppCompatActivity() {
             tvDistance.text    = getString(R.string.km_format, distance)
         }
         binding.viewPager.adapter = LibraryPagerAdapter(this)
+
+
+
+        binding.btnBook.setOnClickListener {
+            val dialog = Dialog(this)
+            dialog.setContentView(R.layout.popup_select_plan)
+            dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+            dialog.setCanceledOnTouchOutside(true)
+            dialog.show()
+
+            dialog.findViewById<ImageView>(R.id.ivClose)?.setOnClickListener { dialog.dismiss() }
+
+            dialog.findViewById<com.google.android.material.button.MaterialButton>(R.id.btnMonthlyBook)?.setOnClickListener {
+                // Handle monthly booking
+                dialog.dismiss()
+            }
+
+            dialog.findViewById<com.google.android.material.button.MaterialButton>(R.id.btnDailyBook)?.setOnClickListener {
+                // Handle daily booking
+                dialog.dismiss()
+            }
+        }
+
+
+
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             val tabView = layoutInflater.inflate(R.layout.custom_tab, null) as TextView

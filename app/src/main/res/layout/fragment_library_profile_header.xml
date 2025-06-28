@@ -27,17 +27,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="-48dp" />
 
-    <ImageView
-        android:id="@+id/ivEditLogo"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@drawable/edit"
-        android:background="@drawable/bg_circle_white_24"
-        android:padding="2dp"
-        app:tint="@color/secondary"
-        app:layout_constraintBottom_toBottomOf="@id/ivAvatar"
-        app:layout_constraintEnd_toEndOf="@id/ivAvatar" />
-
     <LinearLayout
         android:id="@+id/nameRow"
         android:layout_width="wrap_content"
@@ -153,7 +142,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:orientation="horizontal"
-        android:weightSum="3"
+        android:weightSum="2"
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
         app:layout_constraintTop_toBottomOf="@id/btnFollow"
@@ -163,7 +152,7 @@
         <!-- Book Now card -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="0dp"
-            android:layout_height="80dp"
+            android:layout_height="70dp"
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
             app:strokeColor="@color/secondary"
@@ -180,14 +169,14 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/calender"
+                    android:src="@drawable/calenderclock"
                     app:tint="@color/secondary" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="Book Now"
+                    android:text="Choose Shift"
                     android:fontFamily="@font/mregular"
                     android:textColor="@color/black"
                     android:textSize="12sp" />
@@ -197,7 +186,7 @@
         <!-- Distance card -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="0dp"
-            android:layout_height="80dp"
+            android:layout_height="70dp"
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
             app:strokeColor="@color/secondary"
@@ -224,40 +213,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Distance"
-                    android:fontFamily="@font/mregular"
-                    android:textColor="@color/black"
-                    android:textSize="12sp" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Direction card -->
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_weight="1"
-            app:strokeColor="@color/secondary"
-            app:strokeWidth="1dp"
-            app:cardElevation="0dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:background="@color/white"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/direction"
-                    app:tint="@color/secondary" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Direction"
+                    android:text="See Map"
                     android:fontFamily="@font/mregular"
                     android:textColor="@color/black"
                     android:textSize="12sp" />

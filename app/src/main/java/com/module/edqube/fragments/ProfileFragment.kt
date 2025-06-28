@@ -1,12 +1,21 @@
 package com.module.edqube.fragments
 
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContentProviderCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
+import com.module.edqube.R
 import com.module.edqube.adapters.ProfileAdapter
+import com.module.edqube.databinding.DialogProfileMenuBinding
 import com.module.edqube.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
@@ -24,14 +33,60 @@ class ProfileFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.settingProfile.setOnClickListener {
+            showProfileMenu()
+        }
+
 
         binding.profileviewPager.adapter = ProfileAdapter(this)
 
         TabLayoutMediator(binding.profiletabLayout, binding.profileviewPager) { tab, position ->
-            tab.text = tabTitles[position]
+            val tabView = layoutInflater.inflate(R.layout.custom_tab, null) as TextView
+            tabView.text = tabTitles[position]
+            tabView.typeface = resources.getFont(R.font.mregular)
+            tab.customView = tabView
         }.attach()
+    }
+
+    private fun showProfileMenu() {
+        val container = binding.sideMenuContainer
+
+        container.removeAllViews() // clear previous
+        val sideMenuBinding = DialogProfileMenuBinding.inflate(layoutInflater)
+
+        container.addView(sideMenuBinding.root)
+        container.visibility = View.VISIBLE
+
+        // animate in
+        container.translationX = container.width.toFloat()
+        container.animate().translationX(0f).setDuration(300).start()
+
+        // back button dismiss
+        sideMenuBinding.btnClose.setOnClickListener {
+            hideProfileMenu()
+        }
+
+        // logout click
+        sideMenuBinding.logout.setOnClickListener {
+            hideProfileMenu()
+            // handle logout
+        }
+
+        // stop clicks from propagating
+        sideMenuBinding.root.setOnClickListener {
+            // do nothing, eat click
+        }
+    }
+
+    private fun hideProfileMenu() {
+        val container = binding.sideMenuContainer
+        container.animate().translationX(container.width.toFloat()).withEndAction {
+            container.visibility = View.GONE
+        }.start()
     }
 
     override fun onDestroyView() {
@@ -39,3 +94,5 @@ class ProfileFragment : Fragment() {
         _binding = null
     }
 }
+
+
