@@ -50,7 +50,10 @@ class LoginActivity : AppCompatActivity() {
         }
 
         loginBtn.setOnClickListener {
-            val email = emailEt.text.toString().trim()
+            startActivity(Intent(this, ProfileDetailsFirstActivity::class.java))
+            finish()
+
+            /*val email = emailEt.text.toString().trim()
             val password = passwordEt.text.toString().trim()
 
             if (email.isEmpty() || password.isEmpty()) {
@@ -88,10 +91,10 @@ class LoginActivity : AppCompatActivity() {
                         .addOnFailureListener { e ->
                             Toast.makeText(this, "Login failed: ${e.message}", Toast.LENGTH_SHORT).show()
                         }
-                }
+                }*/
         }
 
-        // Forgot password
+       /* // Forgot password
         forgetTV.setOnClickListener {
             val email = emailEt.text.toString().trim()
             if (email.isEmpty()) {
@@ -115,10 +118,10 @@ class LoginActivity : AppCompatActivity() {
                 .build()
             val client = GoogleSignIn.getClient(this, gso)
             startActivityForResult(client.signInIntent, RC_SIGN_IN)
-        }
+        }*/
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    /*override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
@@ -149,5 +152,5 @@ class LoginActivity : AppCompatActivity() {
             .addOnFailureListener {
                 Toast.makeText(this, "Google Auth failed: ${it.message}", Toast.LENGTH_SHORT).show()
             }
-    }
+    }*/
 }

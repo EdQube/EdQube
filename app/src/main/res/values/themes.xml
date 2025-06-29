@@ -5,6 +5,8 @@
         <!-- Example:
         <item name="colorPrimary">@color/your_primary</item>
         -->
+        <item name="android:statusBarColor">@android:color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="Theme.EdQube" parent="Base.Theme.EdQube" />

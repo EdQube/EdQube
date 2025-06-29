@@ -34,6 +34,9 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -50,7 +53,22 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.15.0"))
     implementation("com.google.firebase:firebase-analytics")
 
-    implementation("com.google.firebase:firebase-auth:22.3.1")
+    implementation("com.google.firebase:firebase-auth:23.2.1")
     // Google Sign-In
-    implementation("com.google.android.gms:play-services-auth:21.0.0")
+    implementation("com.google.android.gms:play-services-auth:21.3.0")
+
+    implementation("androidx.viewpager2:viewpager2:1.1.0")
+
+    implementation("androidx.recyclerview:recyclerview:1.4.0")
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-beta01")
+    implementation("de.hdodenhof:circleimageview:3.1.0")
+    implementation("com.tbuonomo:dotsindicator:5.1.0")
+    implementation("io.coil-kt:coil:2.6.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.9.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.1")
+
+    implementation("androidx.fragment:fragment-ktx:1.8.8")          // gives  viewModels{}
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1") // gives lifecycleScope
+
+
 }

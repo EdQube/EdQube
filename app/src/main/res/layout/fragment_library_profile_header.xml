@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/ivCover"
+        android:layout_width="0dp"
+        android:layout_height="160dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/libr"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivAvatar"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:src="@drawable/libr"
+        app:civ_border_width="3dp"
+        app:civ_border_color="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/ivCover"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="-48dp" />
+
+    <LinearLayout
+        android:id="@+id/nameRow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/ivAvatar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/tvLibraryName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quantum Library"
+            android:fontFamily="@font/gbold"
+            android:textSize="18sp"
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:id="@+id/ivVerified"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="4dp"
+            android:src="@drawable/verified"
+            app:tint="@color/secondary" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/statsRow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="4dp"
+        app:layout_constraintTop_toBottomOf="@id/nameRow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvFollowers"
+            android:text="235"
+            android:textColor="@color/black"
+            android:fontFamily="@font/mbold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/mregular"
+            android:text="Followers" />
+
+        <View
+            android:layout_width="8dp"
+            android:layout_height="0dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvFollowing"
+            android:textColor="@color/black"
+            android:fontFamily="@font/mbold"
+            android:text="50" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/mregular"
+            android:text="Following" />
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnFollow"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="12dp"
+        android:text="Follow"
+        android:fontFamily="@font/mbold"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/primary"
+        app:iconPadding="4dp"
+        app:iconTint="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/statsRow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnMessage"
+        app:layout_constraintWidth_percent="0.45" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnMessage"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        android:icon="@drawable/message"
+        android:text="Message"
+        android:fontFamily="@font/mbold"
+        android:textColor="@color/black"
+        app:iconTint="@color/secondary"
+        app:strokeColor="@color/secondary"
+        app:strokeWidth="1dp"
+        app:layout_constraintTop_toTopOf="@id/btnFollow"
+        app:layout_constraintStart_toEndOf="@id/btnFollow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.45" />
+
+    <LinearLayout
+        android:id="@+id/actionCardsRow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        app:layout_constraintTop_toBottomOf="@id/btnFollow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Book Now card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            app:strokeColor="@color/secondary"
+            app:strokeWidth="1dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/calenderclock"
+                    app:tint="@color/secondary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Choose Shift"
+                    android:fontFamily="@font/mregular"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Distance card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            app:strokeColor="@color/secondary"
+            app:strokeWidth="1dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvDistance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3.2 km"
+                    android:fontFamily="@font/mregular"
+                    android:textColor="@color/secondary"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="See Map"
+                    android:fontFamily="@font/mregular"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Little icon-value row reused in “About” -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/aboutItemRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingVertical="8dp"
+    android:gravity="center_vertical">
+
+    <ImageView
+        android:id="@+id/ivAboutIcon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/user" />
+
+    <TextView
+        android:id="@+id/tvAboutValue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:fontFamily="@font/mregular"
+        android:text="Value here"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+        android:layout_weight="1" />
+</LinearLayout>
