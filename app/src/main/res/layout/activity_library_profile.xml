@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <!-- ①  Scrollable header (NestedScrollView so it can collapse if content grows) -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@+id/tabLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- ②  Re-use the header XML you built earlier -->
+        <include
+            android:id="@+id/header"
+            layout="@layout/fragment_library_profile_header" />
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- ③  Tabs -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        style="@style/Widget.Material3.TabLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/viewPager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/scrollHeader"
+        app:tabIndicator="@drawable/tab_indicator"
+        app:tabIndicatorColor="@color/secondary"
+        app:tabIndicatorHeight="2dp"
+        app:tabSelectedTextColor="@color/secondary"
+        app:tabTextColor="@color/black" />
+
+    <!-- ④  ViewPager2 -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toTopOf="@+id/btnBook"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tabLayout" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnBook"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="2dp"
+        android:backgroundTint="@color/secondary"
+        android:fontFamily="@font/mbold"
+        android:text="Book Now"
+        android:textColor="@color/white"
+        app:iconPadding="4dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

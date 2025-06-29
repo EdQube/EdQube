@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">EdQube</string>
+
+    <string-array name="qualifications_array">
+        <item>Select Qualification</item>
+        <item>High School</item>
+        <item>Intermediate</item>
+        <item>Graduation</item>
+        <item>Post Graduation</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="km_format">%.1f km</string>
+
 </resources>

@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:padding="24dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- Logo -->
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/logo"
+        android:contentDescription="Logo" />
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Profile Details"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/gbold"
+            android:layout_marginTop="24dp" />
+
+        <!-- Step Text -->
+        <TextView
+            android:id="@+id/stepText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Step 2/2"
+            android:textColor="#A0A0A0"
+            android:textSize="14sp"
+            android:fontFamily="@font/mlight"
+            android:layout_marginTop="4dp" />
+
+        <!-- Enter Bio Label -->
+        <TextView
+            android:id="@+id/bioLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter Bio"
+            android:fontFamily="@font/mregular"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Bio Input -->
+        <EditText
+            android:id="@+id/editTextBio"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@drawable/edittext_bg"
+            android:hint="Enter your bio"
+            android:padding="12dp"
+            android:fontFamily="@font/mbold"
+            android:gravity="top|start"
+            android:textColor="#000000"
+            android:textColorHint="#888888"
+            android:inputType="textMultiLine"
+            android:lines="4" />
+
+        <!-- Choose Topics Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Choose Topics"
+                android:textSize="16sp"
+                android:fontFamily="@font/mregular"
+                android:layout_weight="1"
+                android:textColor="#222222" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Skip"
+                android:fontFamily="@font/mlight"
+                android:textColor="#999999"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- Chips / Topics -->
+        <GridLayout
+            android:id="@+id/topicChips"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:columnCount="3"
+            android:rowCount="3"
+            android:alignmentMode="alignMargins"
+            android:rowOrderPreserved="false">
+
+            <!-- Example chip -->
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="JEE Mains"
+                android:checkable="true"
+                app:checkedIconVisible="false"
+                app:chipCornerRadius="16dp"
+                app:chipBackgroundColor="@color/chip_bg_selector"
+                android:textColor="@color/chip_text_selector"
+                app:chipStrokeColor="@color/secondary"
+                app:chipStrokeWidth="1dp" />
+
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="JEE Adv"
+                android:checkable="true"
+                app:checkedIconVisible="false"
+                app:chipCornerRadius="16dp"
+                app:chipBackgroundColor="@color/chip_bg_selector"
+                android:textColor="@color/chip_text_selector"
+                android:fontFamily="@font/glight"
+                app:chipStrokeColor="@color/secondary"
+                app:chipStrokeWidth="1dp" />
+
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NEET"
+                android:checkable="true"
+                app:checkedIconVisible="false"
+                app:chipCornerRadius="16dp"
+                app:chipBackgroundColor="@color/chip_bg_selector"
+                android:textColor="@color/chip_text_selector"
+                android:fontFamily="@font/glight"
+                app:chipStrokeColor="@color/secondary"
+                app:chipStrokeWidth="1dp" />
+
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="JDefence"
+                android:checkable="true"
+                app:checkedIconVisible="false"
+                app:chipCornerRadius="16dp"
+                app:chipBackgroundColor="@color/chip_bg_selector"
+                android:textColor="@color/chip_text_selector"
+                android:fontFamily="@font/glight"
+                app:chipStrokeColor="@color/secondary"
+                app:chipStrokeWidth="1dp" />
+
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NDA"
+                android:checkable="true"
+                app:checkedIconVisible="false"
+                app:chipCornerRadius="16dp"
+                app:chipBackgroundColor="@color/chip_bg_selector"
+                android:textColor="@color/chip_text_selector"
+                android:fontFamily="@font/glight"
+                app:chipStrokeColor="@color/secondary"
+                app:chipStrokeWidth="1dp" />
+
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SSC CGL"
+                android:checkable="true"
+                app:checkedIconVisible="false"
+                app:chipCornerRadius="16dp"
+                app:chipBackgroundColor="@color/chip_bg_selector"
+                android:textColor="@color/chip_text_selector"
+                android:fontFamily="@font/glight"
+                app:chipStrokeColor="@color/secondary"
+                app:chipStrokeWidth="1dp" />
+
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SSC CHSL"
+                android:checkable="true"
+                app:checkedIconVisible="false"
+                app:chipCornerRadius="16dp"
+                app:chipBackgroundColor="@color/chip_bg_selector"
+                android:textColor="@color/chip_text_selector"
+                android:fontFamily="@font/glight"
+                app:chipStrokeColor="@color/secondary"
+                app:chipStrokeWidth="1dp" />
+
+
+            <com.google.android.material.chip.Chip
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CDS"
+                android:checkable="true"
+                app:checkedIconVisible="false"
+                app:chipCornerRadius="16dp"
+                app:chipBackgroundColor="@color/chip_bg_selector"
+                android:textColor="@color/chip_text_selector"
+                android:fontFamily="@font/glight"
+                app:chipStrokeColor="@color/secondary"
+                app:chipStrokeWidth="1dp" />
+
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipOther"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Others"
+                android:checkable="false"
+                app:chipCornerRadius="16dp"
+                app:chipStrokeColor="@color/secondary"
+                app:chipStrokeWidth="1dp"
+                app:chipBackgroundColor="@color/white"
+                android:textColor="@color/secondary"
+                android:fontFamily="@font/glight"
+                app:checkedIconVisible="false" />
+
+            <!-- Repeat chipfor each topic -->
+            <!-- JEE Adv, NEET, Defence, NDA, SSC CGL, SSC CHSL, CDS (twice) -->
+
+        </GridLayout>
+
+        <!-- Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonBack"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:text="Back"
+                android:fontFamily="@font/mbold"
+                android:layout_weight="1"
+                android:backgroundTint="#F2F2F2"
+                android:textColor="#000000"
+                android:layout_marginEnd="8dp" />
+
+            <Button
+                android:id="@+id/buttonNext"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="48dp"
+                android:text="Next →"
+                android:fontFamily="@font/mbold"
+                android:backgroundTint="#001F5B"
+                android:textColor="#FFFFFF"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
