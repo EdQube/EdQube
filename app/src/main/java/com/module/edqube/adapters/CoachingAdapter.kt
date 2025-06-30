@@ -15,7 +15,8 @@ class CoachingAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(coaching: Coaching) = with(binding) {
-            imgCoaching.setImageResource(coaching.imageRes)
+//            imgCoaching.setImageResource(coaching.imageRes)
+            idCoachingImg.setBackgroundResource(coaching.imageRes)
             tvName.text = coaching.name
             tvDistance.text = String.format("%.1f km", coaching.distanceKm)
             tvPhone.text = coaching.phone

@@ -15,7 +15,7 @@ class LibraryAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(lib: Library) = with(binding) {
-            imgLibrary.setImageResource(lib.imageRes)
+            imgLibrary.setBackgroundResource(lib.imageRes)
             tvName.text = lib.name
             tvDistance.text = String.format("%.1f km", lib.distanceKm)
             tvPhone.text = lib.phone
