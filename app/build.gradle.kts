@@ -70,6 +70,4 @@ dependencies {
 
     implementation("androidx.fragment:fragment-ktx:1.8.8")          // gives  viewModels{}
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1") // gives lifecycleScope
-
-
 }

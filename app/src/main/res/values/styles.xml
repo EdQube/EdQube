@@ -18,4 +18,44 @@
     <style name="NoIndicator">
         <item name="android:color">@android:color/transparent</item>
     </style>
+
+    <!-- ─────────  MATERIAL‑DATE‑PICKER  ───────── -->
+    <!-- Overlay we pass from Kotlin with setTheme(...)               -->
+    <!-- (dots → underscores when you reference it from code)         -->
+    <style name="ThemeOverlay.App.DatePicker"
+        parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+
+        <!-- Dialog surface/edges -->
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/black</item>
+
+        <!-- Brand accent for header arrows, toggle, etc. -->
+        <item name="colorPrimary">@color/secondary</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <!-- Chips for selected day & year -->
+        <item name="daySelectedStyle">@style/Widget.App.Calendar.Day.Selected</item>
+        <item name="yearSelectedStyle">@style/Widget.App.Calendar.Year.Selected</item>
+
+        <!-- Strip that fills the days between start ↔ end -->
+        <item name="rangeFillColor">@color/secondary</item>
+    </style>
+
+    <!-- Start / end‑day “chips” -->
+    <style name="Widget.App.Calendar.Day.Selected"
+        parent="Widget.MaterialComponents.MaterialCalendar.Day.Selected">
+        <item name="itemFillColor">@color/secondary</item>
+        <item name="itemTextColor">@color/white</item>
+        <item name="itemStrokeColor">@color/secondary</item>
+    </style>
+
+    <!-- Selected year chip (when you open the year selector) -->
+    <style name="Widget.App.Calendar.Year.Selected"
+        parent="Widget.MaterialComponents.MaterialCalendar.Year.Selected">
+        <item name="itemFillColor">@color/secondary</item>
+        <item name="itemTextColor">@color/white</item>
+    </style>
+
+
+
 </resources>

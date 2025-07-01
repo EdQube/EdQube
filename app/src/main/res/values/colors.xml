@@ -5,4 +5,5 @@
     <color name="primary">#1A365D</color>
     <color name="secondary">#008080</color>
     <color name="red">#FF0000</color>
+    <color name="grey">#616161</color>
 </resources>
