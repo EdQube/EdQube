@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
+
+    <ImageView
+        android:id="@+id/ivClock"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/user"
+        app:tint="?attr/colorOnSurfaceVariant" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quantum Library"
+            android:textColor="@color/black"
+            android:fontFamily="@font/mbold"/>
+
+        <TextView
+            android:id="@+id/tvSub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Shyam Nagar, Kanpur"
+            android:textColor="@color/black"
+            android:fontFamily="@font/mregular" />
+    </LinearLayout>
+</LinearLayout>
