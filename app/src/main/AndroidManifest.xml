@@ -22,6 +22,12 @@
         android:theme="@style/Theme.EdQube"
         tools:targetApi="31" >
         <activity
+            android:name=".activities.BookingDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.BookingDeatailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.LibraryProfileActivity"
             android:exported="false" />
         <activity
@@ -34,10 +40,10 @@
             android:name=".initialScreens.ProfileDetailsFirstActivity"
             android:exported="false" />
         <activity
-            android:name="MainActivity"
+            android:name=".initialScreens.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".initialScreens.LoginActivity"
+            android:name=".MainActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
