@@ -38,7 +38,8 @@
             android:exported="false" />
         <activity
             android:name=".initialScreens.ProfileDetailsFirstActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowLayoutInDisplayCutoutMode="shortEdges"/>
         <activity
             android:name=".initialScreens.LoginActivity"
             android:exported="false" />
