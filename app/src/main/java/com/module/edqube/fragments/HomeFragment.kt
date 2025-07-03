@@ -1,16 +1,21 @@
-package com.module.edqube.ui
+package com.module.edqube.fragments
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
+import com.module.edqube.MainActivity
 import com.module.edqube.R
+import com.module.edqube.activities.MessageActivity
+import com.module.edqube.activities.NotificationActivity
 import com.module.edqube.adapters.HomePagerAdapter
 import com.module.edqube.databinding.FragmentHomeBinding
 
@@ -32,6 +37,18 @@ class HomeFragment : Fragment() {
 
         // If you want this toolbar to act as the Activity’s action bar:
         //(requireActivity() as AppCompatActivity).setSupportActionBar(binding.topToolbar)
+
+        binding.topToolbar.findViewById<ImageView>(R.id.notificationIcon).setOnClickListener {
+            val intent = Intent(requireContext(), NotificationActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.topToolbar.findViewById<ImageView>(R.id.chatIcon).setOnClickListener {
+            val intent = Intent(requireContext(), MessageActivity::class.java)
+            startActivity(intent)
+        }
+
+
 
         binding.viewPager.adapter = HomePagerAdapter(this)   // see next section
 

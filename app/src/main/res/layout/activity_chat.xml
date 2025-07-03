@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <!--──────── App bar (teal) with avatar & actions ────────-->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/topAppBar"
+        style="@style/Widget.Material3.Toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/secondary"
+        app:navigationIcon="@drawable/back"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <!-- custom title view -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/ivAvatar"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="4dp"
+                    android:src="@drawable/profile" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/mbold"
+                        android:text="Jiraya Shina"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvSubtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/mlight"
+                        android:text="online"
+                        android:textColor="@android:color/white"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- actions -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight=".5"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btnCall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/secondary"
+                    android:paddingRight="5dp"
+                    android:src="@drawable/call"
+                    app:tint="@color/white" />
+
+                <ImageButton
+                    android:id="@+id/btnMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/secondary"
+                    android:paddingLeft="5dp"
+                    android:src="@drawable/dots"
+                    app:tint="@color/white" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <!--──────── Messages list ────────-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvMessages"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="80dp"
+        android:clipToPadding="false"
+        android:paddingHorizontal="8dp"
+        android:paddingTop="4dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toTopOf="@id/messageComposer" />
+
+    <!--──────── Attachment grid (hidden) ────────-->
+    <include
+        android:id="@+id/attachPanel"
+        layout="@layout/panel_attachment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:visibility="gone" />
+
+    <!--──────── Composer row ────────-->
+    <LinearLayout
+        android:id="@+id/messageComposer"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_gravity="bottom"
+        android:background="@android:color/white"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="8dp">
+
+        <ImageButton
+            android:id="@+id/btnEmoji"
+            android:layout_width="wrap_content"
+            android:background="@color/white"
+            android:layout_height="wrap_content"
+            android:src="@drawable/emoji" />
+
+        <EditText
+            android:id="@+id/etMessage"
+            android:layout_width="276dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="Message"
+            android:maxLines="4"
+            android:paddingVertical="8dp"
+            android:textSize="15sp" />
+
+        <ImageButton
+            android:id="@+id/btnAttach"
+            android:layout_width="wrap_content"
+            android:background="@color/white"
+            android:layout_height="wrap_content"
+            android:src="@drawable/attach" />
+
+        <ImageButton
+            android:id="@+id/btnCamera"
+            android:layout_width="wrap_content"
+            android:background="@color/white"
+            android:layout_height="wrap_content"
+            android:src="@drawable/calender" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnSend"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:src="@drawable/share"
+            app:backgroundTint="@color/secondary"
+            app:tint="@android:color/white" />
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

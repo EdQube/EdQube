@@ -8,7 +8,7 @@ import com.module.edqube.fragments.CreatePostFragment
 import com.module.edqube.fragments.JobsFragment
 import com.module.edqube.fragments.ProfileFragment
 import com.module.edqube.fragments.SearchFragment
-import com.module.edqube.ui.HomeFragment
+import com.module.edqube.fragments.HomeFragment
 
 class MainActivity : AppCompatActivity() {
 
