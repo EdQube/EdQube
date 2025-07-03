@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:elevation="8dp"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:alignmentMode="alignMargins"
+        android:columnCount="3"
+        android:rowCount="2"
+        android:useDefaultMargins="true">
+
+        <include
+            android:id="@+id/optDocument"
+            layout="@layout/item_attach_option" />
+
+        <include
+            android:id="@+id/optCamera"
+            layout="@layout/item_attach_option" />
+
+        <include
+            android:id="@+id/optGallery"
+            layout="@layout/item_attach_option" />
+
+        <include
+            android:id="@+id/optContact"
+            layout="@layout/item_attach_option" />
+
+        <include
+            android:id="@+id/optPolls"
+            layout="@layout/item_attach_option" />
+
+        <include
+            android:id="@+id/optLocation"
+            layout="@layout/item_attach_option" />
+    </GridLayout>
+</LinearLayout>
