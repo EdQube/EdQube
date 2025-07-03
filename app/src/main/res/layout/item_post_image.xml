@@ -5,48 +5,22 @@
     android:id="@+id/cardRoot"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="12dp"
     app:cardElevation="2dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="12dp">
-
-        <!-- 1. Header -->
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imgAvatar"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            app:civ_border_color="#000"
-            app:civ_border_width="0dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/txtUser"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:maxLines="1"
-            android:textStyle="bold"
-            android:textColor="?android:textColorPrimary"
-            android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@id/imgAvatar"
-            app:layout_constraintTop_toTopOf="@id/imgAvatar"
-            app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_height="wrap_content">
 
         <!-- 2. Description -->
         <TextView
             android:id="@+id/txtDesc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
             android:textSize="14sp"
-            app:layout_constraintTop_toBottomOf="@id/imgAvatar"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
 
         <!-- 3. Image carousel -->
         <androidx.viewpager2.widget.ViewPager2
@@ -70,100 +44,6 @@
             app:dotsSpacing="4dp"
             app:layout_constraintBottom_toBottomOf="@id/vpMedia"
             app:layout_constraintEnd_toEndOf="@id/vpMedia"/>
-
-
-        <!-- 4. Action bar -->
-        <LinearLayout
-            android:id="@+id/layoutActions"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/vpMedia"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <ImageButton
-                android:id="@+id/btnLike"
-                android:src="@drawable/heart"
-                android:background="@color/white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:id="@+id/txtLikeCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="21"/>
-
-            <ImageButton
-                android:id="@+id/btnComment"
-                android:layout_width="wrap_content"
-                android:background="@color/white"
-                android:layout_height="wrap_content"
-                android:src="@drawable/comment" />
-
-            <TextView
-                android:id="@+id/txtCommentCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2"/>
-
-            <ImageButton
-                android:id="@+id/btnStatics"
-                android:layout_width="wrap_content"
-                android:background="@color/white"
-                android:layout_height="wrap_content"
-                android:src="@drawable/statics" />
-
-            <ImageButton
-                android:id="@+id/btnShare"
-                android:layout_width="wrap_content"
-                android:background="@color/white"
-                android:layout_height="wrap_content"
-                android:src="@drawable/share" />
-
-        </LinearLayout>
-
-        <!-- 5. Comment entry -->
-        <LinearLayout
-            android:id="@+id/layoutComment"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            app:layout_constraintTop_toBottomOf="@id/layoutActions"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-            <EditText
-                android:id="@+id/edtComment"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Write your comment..."
-                android:maxLines="2" />
-
-            <ImageButton
-                android:id="@+id/btnSendComment"
-                android:layout_width="wrap_content"
-                android:background="@color/white"
-                android:layout_height="wrap_content"
-                android:src="@drawable/share" />
-        </LinearLayout>
-
-        <!-- 6. Timestamp -->
-        <TextView
-            android:id="@+id/txtTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="10 minutes ago"
-            android:textSize="12sp"
-            android:textColor="?android:textColorSecondary"
-            app:layout_constraintTop_toBottomOf="@id/layoutComment"
-            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

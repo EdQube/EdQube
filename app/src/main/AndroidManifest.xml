@@ -47,12 +47,13 @@
             android:exported="false" />
         <activity
             android:name=".initialScreens.ProfileDetailsFirstActivity"
+            android:exported="false"
+            android:windowLayoutInDisplayCutoutMode="shortEdges"/>
+        <activity
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".initialScreens.LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -3,16 +3,16 @@ package com.module.edqube.initialScreens
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Patterns
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.gms.auth.api.signin.*
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.*
-import com.module.edqube.R
+import com.google.firebase.firestore.FirebaseFirestore
 import com.module.edqube.MainActivity
-
-
+import com.module.edqube.R
 
 class LoginActivity : AppCompatActivity() {
 
@@ -34,13 +34,10 @@ class LoginActivity : AppCompatActivity() {
         val googleBtn = findViewById<ConstraintLayout>(R.id.btnGoogle)
         val forgetTV = findViewById<TextView>(R.id.textView5)
 
-        // Auto-login if user already logged in
         if (auth.currentUser != null) {
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
+            checkAndRedirectUser(auth.currentUser!!.uid)
         }
 
-        // Restore saved credentials
         val savedEmail = sharedPreferences.getString("email", "")
         val savedPassword = sharedPreferences.getString("password", "")
         if (!savedEmail.isNullOrEmpty() && !savedPassword.isNullOrEmpty()) {
@@ -50,10 +47,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         loginBtn.setOnClickListener {
-            startActivity(Intent(this, ProfileDetailsFirstActivity::class.java))
-            finish()
-
-            /*val email = emailEt.text.toString().trim()
+            val email = emailEt.text.toString().trim()
             val password = passwordEt.text.toString().trim()
 
             if (email.isEmpty() || password.isEmpty()) {
@@ -61,7 +55,11 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Save password if checkbox checked
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                Toast.makeText(this, "Invalid email format", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             if (rememberCB.isChecked) {
                 sharedPreferences.edit().apply {
                     putString("email", email)
@@ -72,29 +70,34 @@ class LoginActivity : AppCompatActivity() {
                 sharedPreferences.edit().clear().apply()
             }
 
-            // Login with Firebase
             auth.signInWithEmailAndPassword(email, password)
                 .addOnSuccessListener {
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
+                    checkAndRedirectUser(auth.currentUser!!.uid)
                 }
                 .addOnFailureListener {
-                    // If login fails, create account
+                    // Create new account if login fails
                     auth.createUserWithEmailAndPassword(email, password)
-                        .addOnSuccessListener {
-                            // Send to profile setup screen if new user
-                            Toast.makeText(this, "Account created!", Toast.LENGTH_SHORT).show()
-                            // startActivity(Intent(this, ProfileSetupActivity::class.java))
-                            startActivity(Intent(this, MainActivity::class.java)) // temp
-                            finish()
+                        .addOnSuccessListener { result ->
+                            val uid = result.user?.uid ?: return@addOnSuccessListener
+                            val user = hashMapOf(
+                                "email" to email,
+                                "name" to "",
+                                "userType" to "student",
+                                "stepProgress" to 1
+                            )
+                            FirebaseFirestore.getInstance().collection("users")
+                                .document(uid)
+                                .set(user)
+                                .addOnSuccessListener {
+                                    checkAndRedirectUser(uid)
+                                }
                         }
-                        .addOnFailureListener { e ->
-                            Toast.makeText(this, "Login failed: ${e.message}", Toast.LENGTH_SHORT).show()
+                        .addOnFailureListener {
+                            Toast.makeText(this, "Account creation failed: ${it.message}", Toast.LENGTH_SHORT).show()
                         }
-                }*/
+                }
         }
 
-       /* // Forgot password
         forgetTV.setOnClickListener {
             val email = emailEt.text.toString().trim()
             if (email.isEmpty()) {
@@ -110,7 +113,6 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        // Google Sign-In
         googleBtn.setOnClickListener {
             val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -118,10 +120,10 @@ class LoginActivity : AppCompatActivity() {
                 .build()
             val client = GoogleSignIn.getClient(this, gso)
             startActivityForResult(client.signInIntent, RC_SIGN_IN)
-        }*/
+        }
     }
 
-    /*override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
@@ -139,18 +141,49 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithCredential(credential)
             .addOnSuccessListener { result ->
                 val isNew = result.additionalUserInfo?.isNewUser ?: false
+                val uid = result.user?.uid ?: return@addOnSuccessListener
                 if (isNew) {
-                    // Go to profile setup
-                    Toast.makeText(this, "Welcome new user!", Toast.LENGTH_SHORT).show()
-                    // startActivity(Intent(this, ProfileSetupActivity::class.java))
+                    val name = result.user?.displayName ?: ""
+                    val email = result.user?.email ?: ""
+                    val user = hashMapOf(
+                        "email" to email,
+                        "name" to name,
+                        "userType" to "student",
+                        "stepProgress" to 1
+                    )
+                    FirebaseFirestore.getInstance().collection("users")
+                        .document(uid)
+                        .set(user)
+                        .addOnSuccessListener {
+                            checkAndRedirectUser(uid)
+                        }
                 } else {
-                    Toast.makeText(this, "Welcome back!", Toast.LENGTH_SHORT).show()
+                    checkAndRedirectUser(uid)
                 }
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
             }
             .addOnFailureListener {
                 Toast.makeText(this, "Google Auth failed: ${it.message}", Toast.LENGTH_SHORT).show()
             }
-    }*/
+    }
+
+    private fun checkAndRedirectUser(uid: String) {
+        FirebaseFirestore.getInstance().collection("users")
+            .document(uid)
+            .get()
+            .addOnSuccessListener { doc ->
+                val step = doc.getLong("stepProgress")?.toInt() ?: 1
+                when (step) {
+                    1 -> startActivity(Intent(this, ProfileDetailsFirstActivity::class.java))
+                    2 -> startActivity(Intent(this, ProfileDetailsSecondActivity::class.java))
+                    3 -> startActivity(Intent(this, PhotoActivity::class.java))
+                    else -> startActivity(Intent(this, MainActivity::class.java))
+                }
+                finish()
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Error loading user data", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, ProfileDetailsFirstActivity::class.java))
+                finish()
+            }
+    }
 }
