@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -35,8 +35,6 @@
         </RelativeLayout>
 
         <!-- Heading -->
-
-        <!-- Profile Picture Box -->
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
@@ -47,6 +45,7 @@
             android:textColor="#000000"
             android:textSize="20sp"/>
 
+        <!-- Profile Picture Box -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -65,7 +64,6 @@
                 android:scaleType="centerCrop"
                 app:shapeAppearanceOverlay="@style/RoundedImageView" />
 
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -75,6 +73,7 @@
                 android:textSize="14sp"
                 android:layout_marginBottom="8dp" />
 
+            <!-- Upload Profile Button -->
             <Button
                 android:id="@+id/uploadProfileButton"
                 android:layout_width="wrap_content"
@@ -83,6 +82,20 @@
                 android:fontFamily="@font/glight"
                 android:backgroundTint="#102A57"
                 android:textColor="@android:color/white" />
+
+            <!-- Profile ProgressBar -->
+            <ProgressBar
+                android:id="@+id/progressProfile"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="false"
+                android:progress="0"
+                android:max="100"
+                android:visibility="gone"
+                android:layout_marginTop="8dp"
+                android:progressTint="#102A57"/>
+
         </LinearLayout>
 
         <!-- Cover Picture Box -->
@@ -111,6 +124,7 @@
                 android:textSize="14sp"
                 android:layout_marginBottom="8dp" />
 
+            <!-- Upload Cover Button -->
             <Button
                 android:id="@+id/uploadCoverButton"
                 android:layout_width="wrap_content"
@@ -119,7 +133,23 @@
                 android:fontFamily="@font/glight"
                 android:backgroundTint="#102A57"
                 android:textColor="@android:color/white" />
+
+            <!-- Cover ProgressBar -->
+            <ProgressBar
+                android:id="@+id/progressCover"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="false"
+                android:progress="0"
+                android:max="100"
+                android:visibility="gone"
+                android:layout_marginTop="8dp"
+                android:progressTint="#102A57"/>
+
         </LinearLayout>
+
+        <!-- Navigation Buttons -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -150,5 +180,4 @@
         </LinearLayout>
 
     </LinearLayout>
-
-</ScrollView >
+</ScrollView>

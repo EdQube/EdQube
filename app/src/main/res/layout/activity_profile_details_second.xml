@@ -98,17 +98,20 @@
         </LinearLayout>
 
         <!-- Chips / Topics -->
-        <GridLayout
+        <com.google.android.material.chip.ChipGroup
             android:id="@+id/topicChips"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:columnCount="3"
-            android:rowCount="3"
-            android:alignmentMode="alignMargins"
-            android:rowOrderPreserved="false">
+            app:singleLine="false"
+            app:chipSpacing="8dp"
+            app:singleSelection="false"
+            app:selectionRequired="false"
+            android:paddingBottom="8dp"
+            android:paddingTop="4dp"
+            android:orientation="horizontal">
 
-            <!-- Example chip -->
+        <!-- Example chip -->
             <com.google.android.material.chip.Chip
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
@@ -245,7 +248,7 @@
             <!-- Repeat chipfor each topic -->
             <!-- JEE Adv, NEET, Defence, NDA, SSC CGL, SSC CHSL, CDS (twice) -->
 
-        </GridLayout>
+        </com.google.android.material.chip.ChipGroup>
 
         <!-- Buttons -->
         <LinearLayout
