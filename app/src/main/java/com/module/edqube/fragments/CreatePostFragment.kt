@@ -1,16 +1,25 @@
 package com.module.edqube.fragments
 
+import android.content.ContentValues
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
 import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import com.module.edqube.MainActivity
 import com.module.edqube.R
-import com.module.edqube.adapters.DummyImageAdapter
+import com.module.edqube.adapters.ImagePreviewAdapter
 
 class CreatePostFragment : Fragment() {
 
@@ -21,15 +30,41 @@ class CreatePostFragment : Fragment() {
     private lateinit var btnStartPoll: ImageView
     private lateinit var imagePreviewList: RecyclerView
     private lateinit var pollOptionsContainer: LinearLayout
-    private lateinit var btnAddPollOption: Button
+    private lateinit var btnAddPollOption: LinearLayout
 
-    private val selectedImages = mutableListOf<String>() // use URIs in real case
-    private lateinit var imageAdapter: DummyImageAdapter
+    private val selectedImages = mutableListOf<Uri>()
+    private lateinit var imageAdapter: ImagePreviewAdapter
     private val pollOptions = mutableListOf<EditText>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    private var cameraImageUri: Uri? = null
+
+    private val firestore = FirebaseFirestore.getInstance()
+    private val storage = FirebaseStorage.getInstance()
+    private val auth = FirebaseAuth.getInstance()
+
+    private val cameraLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
+        if (success && cameraImageUri != null) {
+            clearPollOptions()
+            selectedImages.clear()
+            selectedImages.add(cameraImageUri!!)
+            imageAdapter.notifyDataSetChanged()
+            imagePreviewList.visibility = View.VISIBLE
+            updatePostButtonState()
+        }
+    }
+
+    private val galleryLauncher = registerForActivityResult(ActivityResultContracts.GetMultipleContents()) { uris ->
+        if (!uris.isNullOrEmpty()) {
+            clearPollOptions()
+            selectedImages.clear()
+            selectedImages.addAll(uris)
+            imageAdapter.notifyDataSetChanged()
+            imagePreviewList.visibility = View.VISIBLE
+            updatePostButtonState()
+        }
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_create_post, container, false)
         initViews(view)
         setupListeners()
@@ -46,34 +81,42 @@ class CreatePostFragment : Fragment() {
         pollOptionsContainer = view.findViewById(R.id.pollOptionsContainer)
         btnAddPollOption = view.findViewById(R.id.btnAddPollOption)
 
-        imageAdapter = DummyImageAdapter(selectedImages)
-        imagePreviewList.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        imageAdapter = ImagePreviewAdapter(selectedImages) { uri ->
+            selectedImages.remove(uri)
+            imageAdapter.notifyDataSetChanged()
+            if (selectedImages.isEmpty()) imagePreviewList.visibility = View.GONE
+            updatePostButtonState()
+        }
+
+        imagePreviewList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         imagePreviewList.adapter = imageAdapter
     }
 
     private fun setupListeners() {
         btnClose.setOnClickListener {
-            requireActivity().onBackPressedDispatcher.onBackPressed()
+            (activity as? MainActivity)?.switchToHome()
         }
 
         edtPostText.addTextChangedListener(postTextWatcher)
 
         btnAttachImage.setOnClickListener {
-            // Simulate adding an image
-            selectedImages.add("Image ${selectedImages.size + 1}")
-            imageAdapter.notifyItemInserted(selectedImages.size - 1)
-            imagePreviewList.visibility = View.VISIBLE
-            updatePostButtonState()
+            (activity as? MainActivity)?.checkAndRequestCameraGalleryPermissions {
+                showImageSourceDialog()
+            }
         }
 
         btnStartPoll.setOnClickListener {
+            if (selectedImages.isNotEmpty()) {
+                selectedImages.clear()
+                imageAdapter.notifyDataSetChanged()
+                imagePreviewList.visibility = View.GONE
+            }
+
+            clearPollOptions()
             pollOptionsContainer.visibility = View.VISIBLE
             btnAddPollOption.visibility = View.VISIBLE
-            if (pollOptions.isEmpty()) {
-                addPollOption()
-                addPollOption()
-            }
+            addPollOption()
+            addPollOption()
             updatePostButtonState()
         }
 
@@ -86,21 +129,154 @@ class CreatePostFragment : Fragment() {
         }
 
         btnPost.setOnClickListener {
-            Toast.makeText(requireContext(), "Post submitted!", Toast.LENGTH_SHORT).show()
-            // Send data to backend here
+            val postText = edtPostText.text.toString().trim()
+            val pollTextList = pollOptions.map { it.text.toString().trim() }.filter { it.isNotEmpty() }
+            val userId = auth.currentUser?.uid ?: return@setOnClickListener
+            val timestamp = System.currentTimeMillis()
+
+            when {
+                selectedImages.isNotEmpty() -> {
+                    uploadImagesToFirebaseStorage(userId, selectedImages) { imageUrls ->
+                        val data = hashMapOf(
+                            "type" to "image",
+                            "userId" to userId,
+                            "content" to postText,
+                            "imageUrls" to imageUrls,
+                            "timestamp" to timestamp
+                        )
+                        firestore.collection("posts").add(data).addOnSuccessListener {
+                            Toast.makeText(requireContext(), "Posted with images!", Toast.LENGTH_SHORT).show()
+                            resetPostForm()
+                        }
+                    }
+                }
+
+                pollOptionsContainer.isVisible && pollTextList.isNotEmpty() -> {
+                    val data = hashMapOf(
+                        "type" to "poll",
+                        "userId" to userId,
+                        "question" to postText,
+                        "options" to pollTextList,
+                        "voteCounts" to MutableList(pollTextList.size) { 0 },
+                        "timestamp" to timestamp
+                    )
+                    firestore.collection("posts").add(data).addOnSuccessListener {
+                        Toast.makeText(requireContext(), "Posted with poll!", Toast.LENGTH_SHORT).show()
+                        resetPostForm()
+                    }
+                }
+
+                postText.isNotEmpty() -> {
+                    val data = hashMapOf(
+                        "type" to "text",
+                        "userId" to userId,
+                        "content" to postText,
+                        "timestamp" to timestamp
+                    )
+                    firestore.collection("posts").add(data).addOnSuccessListener {
+                        Toast.makeText(requireContext(), "Text post submitted!", Toast.LENGTH_SHORT).show()
+                        resetPostForm()
+                    }
+                }
+
+                else -> {
+                    Toast.makeText(requireContext(), "Please enter something!", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
+    private fun showImageSourceDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Choose an option")
+            .setItems(arrayOf("Camera", "Upload from Gallery")) { _, which ->
+                when (which) {
+                    0 -> {
+                        cameraImageUri = createImageUri()
+                        cameraImageUri?.let { cameraLauncher.launch(it) }
+                    }
+                    1 -> galleryLauncher.launch("image/*")
+                }
+            }
+            .show()
+    }
+
+    private fun uploadImagesToFirebaseStorage(
+        userId: String,
+        uris: List<Uri>,
+        onComplete: (List<String>) -> Unit
+    ) {
+        val imageUrls = mutableListOf<String>()
+        val totalImages = uris.size
+
+        for ((index, uri) in uris.withIndex()) {
+            val ref = storage.reference.child("posts/$userId/${System.currentTimeMillis()}_$index.jpg")
+            ref.putFile(uri).continueWithTask { task ->
+                if (!task.isSuccessful) throw task.exception ?: Exception("Upload failed")
+                ref.downloadUrl
+            }.addOnSuccessListener { url ->
+                imageUrls.add(url.toString())
+                if (imageUrls.size == totalImages) {
+                    onComplete(imageUrls)
+                }
+            }
+        }
+    }
+
+    private fun resetPostForm() {
+        edtPostText.text.clear()
+        selectedImages.clear()
+        imageAdapter.notifyDataSetChanged()
+        imagePreviewList.visibility = View.GONE
+        clearPollOptions()
+        updatePostButtonState()
+    }
+
     private fun addPollOption() {
+        val optionLayout = LinearLayout(requireContext()).apply {
+            orientation = LinearLayout.HORIZONTAL
+            gravity = Gravity.CENTER_VERTICAL
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply { setMargins(0, 0, 0, 20) }
+        }
+
         val optionEditText = EditText(requireContext()).apply {
             hint = "Option ${pollOptions.size + 1}"
+            layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
             setPadding(24, 16, 24, 16)
             background = requireContext().getDrawable(R.drawable.edittext_bg)
         }
 
-        pollOptions.add(optionEditText)
-        pollOptionsContainer.addView(optionEditText)
+        val removeButton = ImageView(requireContext()).apply {
+            setImageResource(R.drawable.close)
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply { setMargins(16, 0, 0, 0) }
+            setOnClickListener {
+                pollOptions.remove(optionEditText)
+                pollOptionsContainer.removeView(optionLayout)
+                updatePostButtonState()
+            }
+        }
+
+        if (pollOptions.size < 2) removeButton.visibility = View.GONE
+
         optionEditText.addTextChangedListener(postTextWatcher)
+        pollOptions.add(optionEditText)
+
+        optionLayout.addView(optionEditText)
+        optionLayout.addView(removeButton)
+        pollOptionsContainer.addView(optionLayout)
+    }
+
+    private fun clearPollOptions() {
+        pollOptions.clear()
+        pollOptionsContainer.removeAllViews()
+        pollOptionsContainer.visibility = View.GONE
+        btnAddPollOption.visibility = View.GONE
     }
 
     private val postTextWatcher = object : TextWatcher {
@@ -117,5 +293,14 @@ class CreatePostFragment : Fragment() {
         }
 
         btnPost.isEnabled = hasText || hasImages || hasPoll
+    }
+
+    private fun createImageUri(): Uri? {
+        val resolver = requireContext().contentResolver
+        val contentValues = ContentValues().apply {
+            put(MediaStore.Images.Media.DISPLAY_NAME, "temp_${System.currentTimeMillis()}.jpg")
+            put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
+        }
+        return resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
     }
 }

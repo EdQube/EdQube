@@ -1,119 +1,153 @@
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:padding="16dp"
     android:background="@android:color/white">
 
-    <!-- Top Bar -->
-    <LinearLayout
+    <!-- Scrollable content -->
+    <ScrollView
+        android:id="@+id/scrollContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:fillViewport="true">
 
-        <ImageButton
-            android:id="@+id/btnClose"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/back"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Close" />
+            android:orientation="vertical">
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1" />
+            <!-- Top bar -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
-        <Button
-            android:id="@+id/btnPost"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Post"
-            android:enabled="false"
-            android:backgroundTint="@color/primary"
-            android:textColor="@android:color/white" />
-    </LinearLayout>
+                <ImageButton
+                    android:id="@+id/btnClose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/back"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Close" />
 
-    <!-- Avatar + Post Input -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginTop="16dp">
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imgAvatar"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/libr"
-            android:scaleType="centerCrop" />
+                <Button
+                    android:id="@+id/btnPost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Post"
+                    android:enabled="false"
+                    android:backgroundTint="@color/primary"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
 
-        <EditText
-            android:id="@+id/edtPostText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="What’s happening?"
-            android:background="@android:color/transparent"
-            android:textSize="16sp"
-            android:padding="8dp"
-            android:minLines="3"
-            android:maxLines="8" />
-    </LinearLayout>
+            <!-- Avatar + Text -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="16dp">
 
-    <!-- Media Preview -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/imagePreviewList"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginTop="8dp"
-        android:visibility="gone"
-        android:clipToPadding="false" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgAvatar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/libr"
+                    android:scaleType="centerCrop" />
 
-    <!-- Poll Options -->
-    <LinearLayout
-        android:id="@+id/pollOptionsContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="8dp"
-        android:visibility="gone" />
+                <EditText
+                    android:id="@+id/edtPostText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="What’s happening?"
+                    android:background="@android:color/transparent"
+                    android:textSize="16sp"
+                    android:padding="8dp"
+                    android:minLines="3"
+                    android:maxLines="8" />
+            </LinearLayout>
 
-    <Button
-        android:id="@+id/btnAddPollOption"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="+ Add Option"
-        android:layout_marginTop="4dp"
-        android:visibility="gone" />
+            <!-- Image Preview -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/imagePreviewList"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                android:clipToPadding="false" />
 
-    <!-- Bottom Options (Attach, Poll, etc.) -->
-    <LinearLayout
-        android:id="@+id/bottomActions"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal">
+            <!-- Poll Options -->
+            <LinearLayout
+                android:id="@+id/pollOptionsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="8dp"
+                android:visibility="gone" />
 
-        <ImageView
-            android:id="@+id/btnAttachImage"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/image_upload"
-            android:contentDescription="Attach Image" />
+            <!-- Add Poll Option -->
+            <LinearLayout
+                android:id="@+id/btnAddPollOption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
-        <ImageView
-            android:id="@+id/btnStartPoll"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="8dp"
-            android:src="@drawable/poll"
-            android:contentDescription="Start Poll"/>
-    </LinearLayout>
+                <ImageButton
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/outline_add_2_24"
+                    android:layout_marginRight="6dp"
+                    android:background="@drawable/circle_selected"
+                    android:scaleType="centerInside"
+                    android:padding="2dp"
+                    android:visibility="visible" />
 
-</LinearLayout>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add more option"
+                    android:textSize="10sp"
+                    android:textColor="#83000000"/>
+
+            </LinearLayout>
+
+
+            <!-- Bottom Actions -->
+            <LinearLayout
+                android:id="@+id/bottomActions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingVertical="8dp">
+
+                <ImageView
+                    android:id="@+id/btnAttachImage"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:contentDescription="Attach Image"
+                    android:src="@drawable/image_upload" />
+
+                <ImageView
+                    android:id="@+id/btnStartPoll"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    android:contentDescription="Start Poll"
+                    android:src="@drawable/poll" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

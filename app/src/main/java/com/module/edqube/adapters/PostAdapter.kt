@@ -45,7 +45,11 @@ class PostAdapter(
 
         when (post) {
             is PostItem.TextPost -> {
-                holder.avatar.setImageResource(post.avatar)
+                Glide.with(context)
+                    .load(post.avatar)
+                    .placeholder(R.drawable.profile)
+                    .into(holder.avatar)
+
                 holder.userName.text = post.user
                 val view = LayoutInflater.from(context).inflate(R.layout.item_post_text, holder.postContentContainer, false)
                 view.findViewById<TextView>(R.id.textContent).text = post.content
@@ -53,7 +57,10 @@ class PostAdapter(
             }
 
             is PostItem.ImageTextPost -> {
-                holder.avatar.setImageResource(post.avatar)
+                Glide.with(context)
+                    .load(post.avatar)
+                    .placeholder(R.drawable.profile)
+                    .into(holder.avatar)
                 holder.userName.text = post.user
 
                 val view = LayoutInflater.from(context)
@@ -102,7 +109,10 @@ class PostAdapter(
 
 
             is PostItem.PollPost -> {
-                holder.avatar.setImageResource(post.avatar)
+                Glide.with(context)
+                    .load(post.avatar)
+                    .placeholder(R.drawable.profile)
+                    .into(holder.avatar)
                 holder.userName.text = post.user
 
                 val view = LayoutInflater.from(context).inflate(R.layout.item_post_poll, holder.postContentContainer, false)
