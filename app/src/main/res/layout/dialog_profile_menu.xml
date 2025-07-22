@@ -19,32 +19,33 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal|center_vertical"
         android:orientation="horizontal"
-        android:gravity="center_vertical"
+        android:paddingStart="10dp"
         android:paddingBottom="16dp">
 
         <ImageView
             android:id="@+id/profileImage"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/profile"
-            android:scaleType="centerCrop"
             android:background="@drawable/bg_circle_white_24"
-            android:clipToOutline="true" />
+            android:clipToOutline="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/profile" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_marginStart="12dp">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/profileName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Shivanjal Sharma"
                 android:fontFamily="@font/mbold"
+                android:text="Shivanjal Sharma"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
@@ -52,8 +53,8 @@
                 android:id="@+id/profileFollowers"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="23 Followers • 50 Following"
                 android:fontFamily="@font/mregular"
+                android:text="23 Followers • 50 Following"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -358,6 +359,41 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"/>
             </RelativeLayout>
+
+            <!-- Delete Account -->
+            <RelativeLayout
+                android:id="@+id/deleteAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp">
+
+                <ImageView
+                    android:id="@+id/deleteIcon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/logout"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Delete Account"
+                    android:fontFamily="@font/mregular"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:layout_toEndOf="@id/deleteIcon"
+                    android:layout_marginStart="12dp"
+                    android:layout_centerVertical="true" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/right_arrow"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true" />
+            </RelativeLayout>
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
