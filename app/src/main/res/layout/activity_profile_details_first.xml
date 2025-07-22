@@ -145,6 +145,33 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <!-- Location Section -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Location"
+                android:textColor="@color/black"
+                android:fontFamily="@font/mmedium"/>
+
+            <Button
+                android:id="@+id/buttonDetectLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Detect My Location"
+                android:layout_marginBottom="12dp"
+                android:fontFamily="@font/mbold" />
+
+            <TextView
+                android:id="@+id/textViewDetectedAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Detected address will appear here"
+                android:textColor="#000000"
+                android:padding="8dp"
+                android:background="#F2F2F2"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/mregular" />
+
             <!-- Pin Code -->
             <TextView
                 android:layout_width="match_parent"
@@ -188,6 +215,7 @@
                 android:textColor="@color/black"
                 android:fontFamily="@font/mbold"
                 android:layout_marginBottom="12dp" />
+
             <!-- Qualification -->
             <TextView
                 android:layout_width="match_parent"
@@ -230,8 +258,6 @@
                     android:textColor="#FFFFFF"
                     android:backgroundTint="#001F45" />
             </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

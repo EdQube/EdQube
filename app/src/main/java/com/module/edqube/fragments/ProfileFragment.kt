@@ -1,5 +1,7 @@
 package com.module.edqube.fragments
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -8,15 +10,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContentProviderCompat
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.auth.FirebaseAuth
 import com.module.edqube.R
 import com.module.edqube.adapters.ProfileAdapter
 import com.module.edqube.databinding.DialogProfileMenuBinding
 import com.module.edqube.databinding.FragmentProfileBinding
+import com.module.edqube.initialScreens.LoginActivity
 
 class ProfileFragment : Fragment() {
 
@@ -72,8 +77,19 @@ class ProfileFragment : Fragment() {
 
         // logout click
         sideMenuBinding.logout.setOnClickListener {
-            hideProfileMenu()
-            // handle logout
+            AlertDialog.Builder(requireContext())
+                .setTitle("Logout")
+                .setMessage("Are you sure you want to logout?")
+                .setPositiveButton("Yes") { _, _ ->
+                    hideProfileMenu()
+                    FirebaseAuth.getInstance().signOut()
+                    val intent = Intent(requireActivity(), LoginActivity::class.java) 
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                    Toast.makeText(requireContext(), "Logged out successfully", Toast.LENGTH_SHORT).show()
+                }
+                .setNegativeButton("Cancel", null)
+                .show()
         }
 
         // stop clicks from propagating
