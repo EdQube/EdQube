@@ -1,19 +1,15 @@
 package com.module.edqube.adapters
 
-import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Color
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.DecelerateInterpolator
-import android.widget.*
-import androidx.core.content.ContextCompat
+import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
@@ -28,6 +24,8 @@ class PostAdapter(
     inner class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val avatar: ImageView = itemView.findViewById(R.id.imgAvatar)
         val userName: TextView = itemView.findViewById(R.id.userName)
+        val postTime: TextView = itemView.findViewById(R.id.timestamp)
+        val shareBtn: ImageView = itemView.findViewById(R.id.shareIcon)
         val postContentContainer: FrameLayout = itemView.findViewById(R.id.postContentContainer)
     }
 
@@ -50,7 +48,9 @@ class PostAdapter(
                     .placeholder(R.drawable.profile)
                     .into(holder.avatar)
 
+                holder.postTime.text = post.createdAt
                 holder.userName.text = post.user
+
                 val view = LayoutInflater.from(context).inflate(R.layout.item_post_text, holder.postContentContainer, false)
                 view.findViewById<TextView>(R.id.textContent).text = post.content
                 holder.postContentContainer.addView(view)
@@ -62,6 +62,7 @@ class PostAdapter(
                     .placeholder(R.drawable.profile)
                     .into(holder.avatar)
                 holder.userName.text = post.user
+                holder.postTime.text = post.createdAt
 
                 val view = LayoutInflater.from(context)
                     .inflate(R.layout.item_post_image, holder.postContentContainer, false)
@@ -114,6 +115,7 @@ class PostAdapter(
                     .placeholder(R.drawable.profile)
                     .into(holder.avatar)
                 holder.userName.text = post.user
+                holder.postTime.text = post.createdAt
 
                 val view = LayoutInflater.from(context).inflate(R.layout.item_post_poll, holder.postContentContainer, false)
                 val question = view.findViewById<TextView>(R.id.txtPollQuestion)
