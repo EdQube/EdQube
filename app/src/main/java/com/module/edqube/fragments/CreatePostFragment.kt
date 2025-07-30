@@ -20,6 +20,10 @@ import com.google.firebase.storage.FirebaseStorage
 import com.module.edqube.MainActivity
 import com.module.edqube.R
 import com.module.edqube.adapters.ImagePreviewAdapter
+import android.app.ProgressDialog
+import android.widget.Toast
+import com.bumptech.glide.Glide
+
 
 class CreatePostFragment : Fragment() {
 
@@ -28,6 +32,8 @@ class CreatePostFragment : Fragment() {
     private lateinit var edtPostText: EditText
     private lateinit var btnAttachImage: ImageView
     private lateinit var btnStartPoll: ImageView
+    private lateinit var userImage: ImageView
+    private lateinit var userName: TextView
     private lateinit var imagePreviewList: RecyclerView
     private lateinit var pollOptionsContainer: LinearLayout
     private lateinit var btnAddPollOption: LinearLayout
@@ -80,6 +86,31 @@ class CreatePostFragment : Fragment() {
         imagePreviewList = view.findViewById(R.id.imagePreviewList)
         pollOptionsContainer = view.findViewById(R.id.pollOptionsContainer)
         btnAddPollOption = view.findViewById(R.id.btnAddPollOption)
+        userImage = view.findViewById(R.id.imgAvatar)
+        userName = view.findViewById(R.id.createPostUsername)
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+
+        firestore.collection("users").document(userId)
+            .addSnapshotListener { userDoc, error ->
+                if (error != null) {
+                    Toast.makeText(requireContext(), "Error: ${error.message}", Toast.LENGTH_SHORT).show()
+                    return@addSnapshotListener
+                }
+
+                if (userDoc != null && userDoc.exists()) {
+                    val name = userDoc.getString("name")?.takeIf { it.isNotBlank() } ?: "Unknown"
+                    val avatarUrl = userDoc.getString("profilePictureUrl")?.takeIf { it.isNotBlank() } ?: ""
+
+                    Glide.with(requireActivity())
+                        .load(avatarUrl)
+                        .placeholder(R.drawable.profile)
+                        .into(userImage)
+                    userName.text = name.toString()
+
+                    // Update your UI with userName and avatarUrl
+                }
+            }
+
 
         imageAdapter = ImagePreviewAdapter(selectedImages) { uri ->
             selectedImages.remove(uri)
@@ -129,9 +160,15 @@ class CreatePostFragment : Fragment() {
         }
 
         btnPost.setOnClickListener {
+            btnPost.isEnabled = false // ⛔️ Disable button to prevent multiple taps
+
             val postText = edtPostText.text.toString().trim()
             val pollTextList = pollOptions.map { it.text.toString().trim() }.filter { it.isNotEmpty() }
-            val userId = auth.currentUser?.uid ?: return@setOnClickListener
+            val userId = auth.currentUser?.uid ?: run {
+                Toast.makeText(requireContext(), "User not logged in", Toast.LENGTH_SHORT).show()
+                btnPost.isEnabled = true
+                return@setOnClickListener
+            }
             val timestamp = System.currentTimeMillis()
 
             when {
@@ -147,6 +184,10 @@ class CreatePostFragment : Fragment() {
                         firestore.collection("posts").add(data).addOnSuccessListener {
                             Toast.makeText(requireContext(), "Posted with images!", Toast.LENGTH_SHORT).show()
                             resetPostForm()
+                            btnPost.isEnabled = true // ✅ Re-enable after success
+                        }.addOnFailureListener {
+                            Toast.makeText(requireContext(), "Failed to post!", Toast.LENGTH_SHORT).show()
+                            btnPost.isEnabled = true
                         }
                     }
                 }
@@ -163,6 +204,10 @@ class CreatePostFragment : Fragment() {
                     firestore.collection("posts").add(data).addOnSuccessListener {
                         Toast.makeText(requireContext(), "Posted with poll!", Toast.LENGTH_SHORT).show()
                         resetPostForm()
+                        btnPost.isEnabled = true
+                    }.addOnFailureListener {
+                        Toast.makeText(requireContext(), "Failed to post!", Toast.LENGTH_SHORT).show()
+                        btnPost.isEnabled = true
                     }
                 }
 
@@ -176,14 +221,20 @@ class CreatePostFragment : Fragment() {
                     firestore.collection("posts").add(data).addOnSuccessListener {
                         Toast.makeText(requireContext(), "Text post submitted!", Toast.LENGTH_SHORT).show()
                         resetPostForm()
+                        btnPost.isEnabled = true
+                    }.addOnFailureListener {
+                        Toast.makeText(requireContext(), "Failed to post!", Toast.LENGTH_SHORT).show()
+                        btnPost.isEnabled = true
                     }
                 }
 
                 else -> {
                     Toast.makeText(requireContext(), "Please enter something!", Toast.LENGTH_SHORT).show()
+                    btnPost.isEnabled = true
                 }
             }
         }
+
     }
 
     private fun showImageSourceDialog() {
@@ -209,19 +260,51 @@ class CreatePostFragment : Fragment() {
         val imageUrls = mutableListOf<String>()
         val totalImages = uris.size
 
-        for ((index, uri) in uris.withIndex()) {
-            val ref = storage.reference.child("posts/$userId/${System.currentTimeMillis()}_$index.jpg")
-            ref.putFile(uri).continueWithTask { task ->
-                if (!task.isSuccessful) throw task.exception ?: Exception("Upload failed")
-                ref.downloadUrl
-            }.addOnSuccessListener { url ->
-                imageUrls.add(url.toString())
-                if (imageUrls.size == totalImages) {
-                    onComplete(imageUrls)
-                }
-            }
+        val progressDialog = ProgressDialog(requireContext()).apply {
+            setTitle("Uploading...")
+            setCancelable(false)
+            setProgressStyle(ProgressDialog.STYLE_HORIZONTAL)
+            max = 100
+            show()
         }
+
+        var currentIndex = 0
+
+        fun uploadNext() {
+            if (currentIndex >= uris.size) {
+                progressDialog.dismiss()
+                onComplete(imageUrls)
+                return
+            }
+
+            val uri = uris[currentIndex]
+            val ref = storage.reference.child("posts/$userId/${System.currentTimeMillis()}_$currentIndex.jpg")
+
+            val uploadTask = ref.putFile(uri)
+            uploadTask
+                .addOnProgressListener { taskSnapshot ->
+                    val progress = (100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount).toInt()
+                    progressDialog.progress = progress
+                    progressDialog.setMessage("Uploading image ${currentIndex + 1} of $totalImages")
+                }
+                .continueWithTask { task ->
+                    if (!task.isSuccessful) throw task.exception ?: Exception("Upload failed")
+                    ref.downloadUrl
+                }
+                .addOnSuccessListener { url ->
+                    imageUrls.add(url.toString())
+                    currentIndex++
+                    uploadNext() // Upload next image
+                }
+                .addOnFailureListener { error ->
+                    progressDialog.dismiss()
+                    Toast.makeText(requireContext(), "Upload failed: ${error.message}", Toast.LENGTH_LONG).show()
+                }
+        }
+
+        uploadNext()
     }
+
 
     private fun resetPostForm() {
         edtPostText.text.clear()

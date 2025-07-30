@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.firebase.firestore.FirebaseFirestore
 import com.module.edqube.R
+import com.module.edqube.Utils
 import com.module.edqube.adapters.PostAdapter
 import com.module.edqube.models.PostItem
 
@@ -56,6 +57,8 @@ class PostFragment : Fragment() {
                     val userId = document.getString("userId") ?: continue
                     val type = document.getString("type") ?: continue
                     val content = document.getString("content") ?: ""
+                    val createdAt = document.getLong("timestamp") ?: 0
+                    val timeAgo = Utils.getTimeAgo(createdAt)
 
                     // Fetch user info by userId
                     firestore.collection("users").document(userId)
@@ -70,7 +73,8 @@ class PostFragment : Fragment() {
                                         PostItem.TextPost(
                                             user = userName,
                                             avatar = avatarUrl,
-                                            content = content
+                                            content = content,
+                                            createdAt = timeAgo
                                         )
                                     )
                                 }
@@ -82,7 +86,8 @@ class PostFragment : Fragment() {
                                             user = userName,
                                             avatar = avatarUrl,
                                             content = content,
-                                            imageUrls = imageUrls
+                                            imageUrls = imageUrls,
+                                            createdAt = timeAgo
                                         )
                                     )
                                 }
@@ -99,6 +104,7 @@ class PostFragment : Fragment() {
                                             avatar = avatarUrl,
                                             question = question,
                                             options = options,
+                                            createdAt = timeAgo,
                                             voteCounts = voteCounts.map { it.toInt() }.toMutableList()
                                         )
                                     )
