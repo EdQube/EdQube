@@ -33,6 +33,7 @@ class LoginActivity : AppCompatActivity() {
         val loginBtn = findViewById<Button>(R.id.btnLogin)
         val googleBtn = findViewById<ConstraintLayout>(R.id.btnGoogle)
         val forgetTV = findViewById<TextView>(R.id.textView5)
+        val guestBtn = findViewById<Button>(R.id.btnGuestLogin)
 
         if (auth.currentUser != null) {
             checkAndRedirectUser(auth.currentUser!!.uid)
@@ -44,6 +45,11 @@ class LoginActivity : AppCompatActivity() {
             emailEt.setText(savedEmail)
             passwordEt.setText(savedPassword)
             rememberCB.isChecked = true
+        }
+
+        guestBtn.setOnClickListener{
+            signInAsGuest()
+
         }
 
         loginBtn.setOnClickListener {
@@ -186,4 +192,24 @@ class LoginActivity : AppCompatActivity() {
                 finish()
             }
     }
+
+    private fun signInAsGuest() {
+        val auth = FirebaseAuth.getInstance()
+        auth.signInAnonymously()
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Login successful
+                    val user = auth.currentUser
+                    Toast.makeText(this, "Signed in as Guest", Toast.LENGTH_SHORT).show()
+                    // Navigate to main activity
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    // Login failed
+                    Toast.makeText(this, "Guest login failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
+
 }
